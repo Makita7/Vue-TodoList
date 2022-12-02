@@ -1,6 +1,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import BaseListFilters from './BaseListFilters.vue';
 
     const Checkbox = ref(false);
 
@@ -44,6 +45,8 @@ import { ref } from 'vue';
             </div>
             <hr class="divider"/>
         </div>
+
+        <BaseListFilters/>
 
     </div>
 </template>
