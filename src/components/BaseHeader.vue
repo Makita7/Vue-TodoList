@@ -1,5 +1,8 @@
 
 <script setup>
+    import { reactive, ref } from 'vue';
+
+    let DarkMode = ref(false);
 
 </script>
 
@@ -7,17 +10,19 @@
 <template>
     <header>
         <h1>todo</h1>
-        <fa class="iconW fa-2xl" icon="moon"/>
-        <!-- <fa class="iconW" icon="sun"/> -->
+        <button v-show="DarkMode" @click="(DarkMode = !DarkMode)">
+            <fa class="iconW fa-2xl" icon="moon"/>
+        </button>
+        <button v-show="!DarkMode" @click="(DarkMode = !DarkMode)">
+            <fa class="iconW fa-2xl" icon="sun"/>
+        </button>
     </header>
 </template>
 
 <style scoped>
 header{
     margin-top: 4rem;
-    width: 100vh;
     display: flex;
-    margin-left: 50vh;
     text-align: center;
     justify-content: space-between;
 }
@@ -36,5 +41,9 @@ header{
         opacity: 1;
         color: white;
         scale: 1.1;
+    }
+    button{
+        border-color: #ffffff00;
+        background-color: #ffffff00;
     }
 </style>

@@ -10,6 +10,12 @@
 
 h1, h2, h3, h4, h5, h6{
     font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+}
+
+p, input{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
 }
 
 .absolute{
@@ -18,4 +24,8 @@ h1, h2, h3, h4, h5, h6{
 
 .relative{
     position: relative;
+}
+
+.flex{
+    display: flex;
 }
