@@ -2,7 +2,22 @@
     import '@fortawesome/free-solid-svg-icons';
     import BaseHeader from './components/BaseHeader.vue';
     import BaseInput from './components/BaseInput.vue';
-import ListItems from './components/ListItems.vue';
+    import ListItems from './components/ListItems.vue';
+</script>
+
+<script>
+    export default{
+        data(){
+            return{
+                TodoList: [
+                    { id: 1, task: 'Clean your room', done: false },
+                    { id: 2, task: 'Go for a walk', done: false },
+                    { id: 3, task: 'Do Homework', done: false },
+                    { id: 4, task: 'Study Vue', done: false },
+                ]
+            }
+        },
+    }
 </script>
 
 <template>
@@ -11,7 +26,7 @@ import ListItems from './components/ListItems.vue';
             <div class="absolute innerContainer">
                 <BaseHeader/>
                 <BaseInput/>
-                <ListItems/>
+                <ListItems :TodoList="TodoList"/>
                 <p class="dragtext">Drag and drop to reorder list</p>
             </div>
         </div>

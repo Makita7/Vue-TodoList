@@ -1,4 +1,16 @@
 
+<script>
+    export default{
+        name: 'ListFilters',
+        props: ['TodoList'],
+        methods: {
+            DeleteAll(){
+                this.TodoList = []
+            }
+        }
+    }
+
+</script>
 
 <template>
     <div class="flex">
@@ -14,6 +26,10 @@
             <button>
                 Clear Completed
             </button>
+            <button @click="DeleteAll">
+                Clear All
+            </button>
+
         </div>
     </div>
 </template>
