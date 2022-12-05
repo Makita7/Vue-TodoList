@@ -5,7 +5,7 @@
 
     export default{
         name: 'ListItems',
-        props: ['TodoList'],
+        props: {TodoList:Object, DeleteAll:Event},
         components: {
             BaseListFilters,
             BaseListItem
@@ -15,8 +15,9 @@
 
 <template>
     <div class="Wrapper">
-        <BaseListItem v-for="i in TodoList" :task="i.task" :done="i.done" :id="i.id"/>
-        <BaseListFilters :TodoList="TodoList"/>
+        <p>{{TodoList}}</p>
+        <BaseListItem v-for="i in TodoList" :key="i.id" :task="i.task" :done="i.done" :id="i.id"/>
+        <BaseListFilters :TodoList="TodoList" @DeleteAll="$emit('DeleteAll')"/>
     </div>
 </template>
 

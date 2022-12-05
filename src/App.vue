@@ -17,6 +17,11 @@
                 ]
             }
         },
+        methods: {
+            DeleteAll(){
+                this.TodoList = [];
+            }
+        },
     }
 </script>
 
@@ -26,8 +31,9 @@
             <div class="absolute innerContainer">
                 <BaseHeader/>
                 <BaseInput/>
-                <ListItems :TodoList="TodoList"/>
+                <ListItems :TodoList="TodoList" @DeleteAll="DeleteAll()"/>
                 <p class="dragtext">Drag and drop to reorder list</p>
+                <button @click="DeleteAll">Delete All</button>
             </div>
         </div>
     </div>

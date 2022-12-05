@@ -2,14 +2,13 @@
 <script>
     export default{
         name: 'ListFilters',
-        props: ['TodoList'],
+        props: { TodoList: Object },
         methods: {
             DeleteAll(){
-                this.TodoList = []
+                this.$emit('DeleteAll')
             }
-        }
+        },
     }
-
 </script>
 
 <template>
@@ -27,7 +26,7 @@
                 Clear Completed
             </button>
             <button @click="DeleteAll">
-                Clear All
+                Delete All
             </button>
 
         </div>
