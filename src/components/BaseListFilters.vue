@@ -25,7 +25,7 @@
             <button>
                 Clear Completed
             </button>
-            <button @click="DeleteAll">
+            <button @click="DeleteAll()">
                 Delete All
             </button>
 

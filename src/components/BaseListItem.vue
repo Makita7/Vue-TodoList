@@ -8,8 +8,11 @@
             done: Boolean
         },
         methods: {
-            DeleteTodo(){
-                this.TodoList = this.TodoList.value.filter( t => t !== todo)
+            DeleteItem(){
+                this.$emit('DeleteItem')
+            },
+            ToggleDone(){
+                this.$emit('ToogleDone')
             }
         }
     }
@@ -20,17 +23,17 @@
     <div>
         <div class="flex TodoItem">
             <div v-show="done" class="checkWrapper">
-                <div class="check"  @click="(done = !done)" >
+                <div class="check"  @click="ToggleDone(todo)" >
                     <img alt="check" src="../assets/icon-check.svg"/>
                 </div>
             </div>
             <div v-show="!done" class="checkWrapperFalse">
-                <div class="check"  @click="(done = !done)" >
+                <div class="check"  @click="ToggleDone(todo)" >
                     <img class="circle" alt="blanck done" src="../assets/white-circle.svg"/>
                 </div>
             </div>
             <p>{{task}}</p>
-            <img @click="DeleteTodo" src="../assets/icon-cross.svg" alt="delete todo item" class="delete"/>
+            <img @click="DeleteItem(todo)" src="../assets/icon-cross.svg" alt="delete todo item" class="delete"/>
         </div>
         <hr class="divider"/>
     </div>
