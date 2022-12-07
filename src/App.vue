@@ -56,7 +56,8 @@
                 this.All = this.All.filter((t) => t !== todo)
             },
             ClearCompleted(){
-                this.Completed = this.Completed.filter((t) => t.done === false)
+                this.TodoList = this.TodoList.filter((t) => t.done === false)
+                this.All = this.All.filter((t) => t.done === false)
             },
             getAll(){
                 return this.TodoList = this.All
@@ -105,7 +106,7 @@
                         <hr class="divider"/>
                     </div>
 
-                    <BaseListFilters :All="All" @getAll="getAll()" @DeleteAll='DeleteAll()' @getCompleted="getCompleted()" @getActive="getActive()"/>
+                    <BaseListFilters :All="All" @getAll="getAll()" @DeleteAll='DeleteAll()' @getCompleted="getCompleted()" @getActive="getActive()" @ClearCompleted="ClearCompleted()"/>
                 </div>
                 <p class="dragtext">Drag and drop to reorder list</p>
             </div>
