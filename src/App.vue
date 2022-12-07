@@ -37,6 +37,9 @@ import { onMounted } from 'vue';
             },
             DeleteItem(todo){
                 this.TodoList = this.TodoList.filter((t) => t !== todo)
+                this.Completed = this.Completed.filter((t) => t !== todo)
+                this.Active = this.Active.filter((t) => t !== todo)
+                this.All = this.All.filter((t) => t !== todo)
             },
             ClearCompleted(){
                 this.Completed = this.Completed.filter((t) => t.done === false)
@@ -45,16 +48,16 @@ import { onMounted } from 'vue';
                 return this.TodoList = this.All
             },
             getActive(){
-                return this.TodoList = this.Active
+                return this.TodoList = this.Active.filter((t) => t.done === false)
             },
             getCompleted(){
-                return this.TodoList = this.Completed
+                return this.TodoList = this.Completed.filter((t) => t.done === true)
             }
         },
         mounted(){
             this.All = this.TodoList,
-            this.Completed = this.TodoList.filter((t) => t.done === true),
-            this.Active = this.TodoList.filter((t) => t.done === false)
+            this.Completed = this.TodoList,
+            this.Active = this.TodoList
         },
         computed: {
 
@@ -70,7 +73,6 @@ import { onMounted } from 'vue';
                 <BaseInput/>
                 <div class="Wrapper">
 
-                    {{Completed}}
                     <div v-for="todo in TodoList" :key="todo.id">
                         <div class="flex TodoItem">
                             <div v-show="todo.done" class="checkWrapper">

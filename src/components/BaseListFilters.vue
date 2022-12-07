@@ -4,12 +4,18 @@
         name: 'ListFilters',
         props: { TodoList: Object },
         methods: {
+            getAll(){
+                this.$emit('getAll')
+            },
+            getActive(){
+                this.$emit('getActive')
+            },
+            getCompleted(){
+                this.$emit('getCompleted')
+            },
             DeleteAll(){
                 this.$emit('DeleteAll')
             },
-            ClearCompleted(){
-                this.$emit('ClearCompleted')
-            }
         },
     }
 </script>
@@ -20,14 +26,11 @@
             {{TodoList.filter(t => t.done === false).length}} items left
         </div>
         <div class="col flex filters">
-            <p>All</p>
-            <p>Active</p>
-            <p>Completed</p>
+            <button @click="getAll()">ALL</button>
+            <button @click="getActive()">Active</button>
+            <button @click="getCompleted()">Completed</button>
         </div>
         <div class="col">
-            <button @click="ClearCompleted()">
-                Clear Completed
-            </button>
             <button @click="DeleteAll()">
                 Delete All
             </button>
