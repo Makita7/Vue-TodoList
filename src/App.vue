@@ -1,18 +1,13 @@
 <script>
     import '@fortawesome/free-solid-svg-icons';
-import { onMounted } from 'vue';
     import BaseHeader from './components/BaseHeader.vue';
-    import BaseInput from './components/BaseInput.vue';
     import BaseListFilters from './components/BaseListFilters.vue';
-    import BaseListItem from './components/BaseListItem.vue';
 
 
     export default{
         components: {
             BaseHeader,
-            BaseInput,
             BaseListFilters,
-            BaseListItem,
         },
         data(){
             return{
@@ -45,10 +40,10 @@ import { onMounted } from 'vue';
                         done: false,
                     })
                     this.newTodo = ''
+                    this.All = this.TodoList
                 }
             },
             DeleteAll(){
-                this.TodoList = [];
                 this.TodoList = []
                 this.Completed = []
                 this.Active = []
@@ -67,21 +62,15 @@ import { onMounted } from 'vue';
                 return this.TodoList = this.All
             },
             getActive(){
-                return this.TodoList = this.Active.filter((t) => t.done === false)
+                return this.TodoList = this.All.filter((t) => t.done === false)
             },
             getCompleted(){
-                return this.TodoList = this.Completed.filter((t) => t.done === true)
+                return this.TodoList = this.All.filter((t) => t.done === true)
             }
         },
         mounted(){
-            this.All = this.TodoList,
-            this.Completed = this.TodoList,
-            this.Active = this.TodoList
-            this.LastId = this.TodoList.length
-        },
-        computed: {
-
-        },
+            this.All = this.TodoList
+        }
     }
 </script>
 
@@ -116,7 +105,7 @@ import { onMounted } from 'vue';
                         <hr class="divider"/>
                     </div>
 
-                    <BaseListFilters :TodoList="TodoList" @getAll="getAll()" @DeleteAll='DeleteAll()' @getCompleted="getCompleted()" @getActive="getActive()"/>
+                    <BaseListFilters :All="All" @getAll="getAll()" @DeleteAll='DeleteAll()' @getCompleted="getCompleted()" @getActive="getActive()"/>
                 </div>
                 <p class="dragtext">Drag and drop to reorder list</p>
             </div>

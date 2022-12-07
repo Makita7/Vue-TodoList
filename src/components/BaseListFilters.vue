@@ -2,7 +2,7 @@
 <script>
     export default{
         name: 'ListFilters',
-        props: { TodoList: Object },
+        props: { All: Object },
         methods: {
             getAll(){
                 this.$emit('getAll')
@@ -23,7 +23,7 @@
 <template>
     <div class="flex">
         <div class="col count">
-            {{TodoList.filter(t => t.done === false).length}} items left
+            {{All.filter(t => t.done === false).length}} items left
         </div>
         <div class="col flex filters">
             <button @click="getAll()">ALL</button>
