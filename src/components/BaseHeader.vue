@@ -1,19 +1,23 @@
 
-<script setup>
-    import { reactive, ref } from 'vue';
-
-    let DarkMode = ref(false);
-
+<script>
+    export default{
+        props:{ DarkMode: Boolean },
+        methods: {
+            ToggleDarkMode(){
+                this.$emit('ToggleDarkMode')
+            },
+        }
+    }
 </script>
 
 
 <template>
     <header>
         <h1>todo</h1>
-        <button v-show="DarkMode" @click="(DarkMode = !DarkMode)">
+        <button v-show="DarkMode" @click="ToggleDarkMode()">
             <fa class="iconW fa-2xl" icon="moon"/>
         </button>
-        <button v-show="!DarkMode" @click="(DarkMode = !DarkMode)">
+        <button v-show="!DarkMode" @click="ToggleDarkMode()">
             <fa class="iconW fa-2xl" icon="sun"/>
         </button>
     </header>

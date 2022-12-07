@@ -32,8 +32,15 @@ import { onMounted } from 'vue';
             ToggleDone(todo){
                 todo.done = !todo.done
             },
+            ToggleDarkMode(){
+                this.DarkMode = !this.DarkMode
+            },
             DeleteAll(){
                 this.TodoList = [];
+                this.TodoList = []
+                this.Completed = []
+                this.Active = []
+                this.All = []
             },
             DeleteItem(todo){
                 this.TodoList = this.TodoList.filter((t) => t !== todo)
@@ -69,7 +76,7 @@ import { onMounted } from 'vue';
     <div class="relative bottomBackground App">
         <div class="topBackground">
             <div class="absolute innerContainer">
-                <BaseHeader/>
+                <BaseHeader :DarkMode="DarkMode" @ToggleDarkMode="ToggleDarkMode()"/>
                 <BaseInput/>
                 <div class="Wrapper">
 
