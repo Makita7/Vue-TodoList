@@ -22,26 +22,39 @@ import { onMounted } from 'vue';
                     { id: 3, task: 'Do Homework', done: false },
                     { id: 4, task: 'Study Vue', done: false },
                 ],
-                UnCount: {...this.TodoList},
+                All: [],
+                Completed: [],
+                Active: [],
                 DarkMode: false,
             }
         },
         methods: {
+            ToggleDone(todo){
+                todo.done = !todo.done
+            },
             DeleteAll(){
                 this.TodoList = [];
             },
             DeleteItem(todo){
                 this.TodoList = this.TodoList.filter((t) => t !== todo)
             },
-            ToggleDone(todo){
-                todo.done = !todo.done
-            },
             ClearCompleted(){
-                this.TodoList = this.TodoList.filter((t) => t.done === false)
+                this.Completed = this.Completed.filter((t) => t.done === false)
             },
-            Uncompleted(){
-                return TodoList.filter(t => t.done === false).length
+            getAll(){
+                return this.TodoList = this.All
+            },
+            getActive(){
+                return this.TodoList = this.Active
+            },
+            getCompleted(){
+                return this.TodoList = this.Completed
             }
+        },
+        mounted(){
+            this.All = this.TodoList,
+            this.Completed = this.TodoList.filter((t) => t.done === true),
+            this.Active = this.TodoList.filter((t) => t.done === false)
         },
         computed: {
 
@@ -56,9 +69,8 @@ import { onMounted } from 'vue';
                 <BaseHeader/>
                 <BaseInput/>
                 <div class="Wrapper">
-                    <!-- <BaseListItem v-for="todo in TodoList" :key="todo.id" :task="todo.task" :done="todo.done" :id="todo.id" @DeleteItem="DeleteItem(todo)" @ToggleDone="ToggleDone()" /> -->
 
-
+                    {{Completed}}
                     <div v-for="todo in TodoList" :key="todo.id">
                         <div class="flex TodoItem">
                             <div v-show="todo.done" class="checkWrapper">
@@ -77,7 +89,7 @@ import { onMounted } from 'vue';
                         <hr class="divider"/>
                     </div>
 
-                    <BaseListFilters :TodoList="TodoList" @DeleteAll='DeleteAll()' @ClearCompleted="ClearCompleted()"/>
+                    <BaseListFilters :TodoList="TodoList" @getAll="getAll()" @DeleteAll='DeleteAll()' @getCompleted="getCompleted()" @getActive="getActive()"/>
                 </div>
                 <p class="dragtext">Drag and drop to reorder list</p>
             </div>
