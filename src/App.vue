@@ -26,6 +26,8 @@ import { onMounted } from 'vue';
                 Completed: [],
                 Active: [],
                 DarkMode: false,
+                LastId: [],
+                newTodo: '',
             }
         },
         methods: {
@@ -34,6 +36,16 @@ import { onMounted } from 'vue';
             },
             ToggleDarkMode(){
                 this.DarkMode = !this.DarkMode
+            },
+            AddTodo(){
+                if(this.newTodo.length > 0){
+                    this.TodoList.push({
+                        id: this.LastId,
+                        task: this.newTodo,
+                        done: false,
+                    })
+                    this.newTodo = ''
+                }
             },
             DeleteAll(){
                 this.TodoList = [];
@@ -65,6 +77,7 @@ import { onMounted } from 'vue';
             this.All = this.TodoList,
             this.Completed = this.TodoList,
             this.Active = this.TodoList
+            this.LastId = this.TodoList.length
         },
         computed: {
 
@@ -77,7 +90,12 @@ import { onMounted } from 'vue';
         <div class="topBackground">
             <div class="absolute innerContainer">
                 <BaseHeader :DarkMode="DarkMode" @ToggleDarkMode="ToggleDarkMode()"/>
-                <BaseInput/>
+                <input
+                    type="text"
+                    id="newTodo"
+                    v-model="newTodo"
+                    @keyup.enter="AddTodo()"
+                />
                 <div class="Wrapper">
 
                     <div v-for="todo in TodoList" :key="todo.id">
@@ -128,6 +146,17 @@ import { onMounted } from 'vue';
         padding: 15px 25px;
         box-sizing: border-box;
         box-shadow: 0px 0px 20px hsl(233deg 6% 71% / 64%);
+    }
+
+    input{
+        width: 100%;
+        border-radius: 5px;
+        border-color: rgba(240, 248, 255, 0);
+        height: 3rem;
+        margin: 2rem 0 1rem 0;
+        font-size: 1.4rem;
+        padding: 0rem 2rem;
+        box-sizing: border-box;
     }
     .dragtext{
         margin-top: 3rem;

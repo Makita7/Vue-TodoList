@@ -1,11 +1,20 @@
 
 <!-- the input should be posted to list with enter key -->
-<script setup>
-
+<script>
+    export default{
+        props: {
+            newTodo: String,
+        },
+        methods: {
+            AddTodo(){
+                this.$emit('AddTodo')
+            }
+        }
+    }
 </script>
 
 <template>
-    <input type="text" id="newTodo" minlength="6" />
+
 </template>
 
 <style scoped>
