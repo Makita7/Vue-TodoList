@@ -1,5 +1,6 @@
 <script>
     import '@fortawesome/free-solid-svg-icons';
+import { onMounted } from 'vue';
     import BaseHeader from './components/BaseHeader.vue';
     import BaseInput from './components/BaseInput.vue';
     import BaseListFilters from './components/BaseListFilters.vue';
@@ -20,7 +21,9 @@
                     { id: 2, task: 'Go for a walk', done: true },
                     { id: 3, task: 'Do Homework', done: false },
                     { id: 4, task: 'Study Vue', done: false },
-                ]
+                ],
+                UnCount: {...this.TodoList},
+                DarkMode: false,
             }
         },
         methods: {
@@ -34,11 +37,15 @@
                 todo.done = !todo.done
             },
             ClearCompleted(){
-                this.TodoList = this.TodoList.done.filter((t) => t === todo.done)
+                this.TodoList = this.TodoList.filter((t) => t.done === false)
+            },
+            Uncompleted(){
+                return TodoList.filter(t => t.done === false).length
             }
         },
         computed: {
-        }
+
+        },
     }
 </script>
 
@@ -70,8 +77,7 @@
                         <hr class="divider"/>
                     </div>
 
-
-                    <BaseListFilters :TodoList="TodoList" @DeleteAll='DeleteAll()' />
+                    <BaseListFilters :TodoList="TodoList" @DeleteAll='DeleteAll()' @ClearCompleted="ClearCompleted()"/>
                 </div>
                 <p class="dragtext">Drag and drop to reorder list</p>
             </div>
@@ -114,6 +120,7 @@
         width: 2rem;
         border-radius: 50%;
         box-sizing: border-box;
+        cursor: pointer;
     }
     .checkWrapperFalse{
         background: linear-gradient( 160deg ,hsl(233, 11%, 84%), hsl(233, 11%, 84%));
@@ -122,9 +129,13 @@
         border-radius: 50%;
         box-sizing: border-box;
         transition: all 2s ease-in-out;
+        cursor: pointer;
     }
     .checkWrapperFalse:hover{
         background: linear-gradient( 160deg ,hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+    }
+    .checkWrapper:hover{
+        opacity: 0.8;
     }
     .check{
         color: white;
@@ -145,6 +156,10 @@
         width: 1.3rem;
         height: 1.4rem;
         padding-top: 0.5rem;
+        cursor: pointer;
+    }
+    img.delete:hover {
+        opacity: 0.5;
     }
     .TodoItem p{
         padding: 0.5rem 1rem;

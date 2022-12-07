@@ -6,6 +6,9 @@
         methods: {
             DeleteAll(){
                 this.$emit('DeleteAll')
+            },
+            ClearCompleted(){
+                this.$emit('ClearCompleted')
             }
         },
     }
@@ -14,7 +17,7 @@
 <template>
     <div class="flex">
         <div class="col count">
-            5 items left
+            {{TodoList.filter(t => t.done === false).length}} items left
         </div>
         <div class="col flex filters">
             <p>All</p>
@@ -22,7 +25,7 @@
             <p>Completed</p>
         </div>
         <div class="col">
-            <button>
+            <button @click="ClearCompleted()">
                 Clear Completed
             </button>
             <button @click="DeleteAll()">

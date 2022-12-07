@@ -29,3 +29,7 @@ p, input{
 .flex{
     display: flex;
 }
+
+button{
+    cursor: pointer;
+}
