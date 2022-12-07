@@ -11,12 +11,7 @@
         },
         data(){
             return{
-                TodoList: [
-                    { id: 1, task: 'Clean your room', done: false },
-                    { id: 2, task: 'Go for a walk', done: true },
-                    { id: 3, task: 'Do Homework', done: false },
-                    { id: 4, task: 'Study Vue', done: false },
-                ],
+                TodoList: [],
                 All: [],
                 Completed: [],
                 Active: [],
@@ -28,9 +23,11 @@
         methods: {
             ToggleDone(todo){
                 todo.done = !todo.done
+                localStorage.setItem('LocalTodoList', JSON.stringify(this.TodoList))
             },
             ToggleDarkMode(){
                 this.DarkMode = !this.DarkMode
+                localStorage.setItem('LocalDarkMode', JSON.stringify(this.DarkMode));
             },
             AddTodo(){
                 if(this.newTodo.length > 0){
@@ -41,6 +38,7 @@
                     })
                     this.newTodo = ''
                     this.All = this.TodoList
+                    localStorage.setItem('LocalTodoList', JSON.stringify(this.TodoList))
                 }
             },
             DeleteAll(){
@@ -48,12 +46,14 @@
                 this.Completed = []
                 this.Active = []
                 this.All = []
+                localStorage.setItem('LocalTodoList', JSON.stringify(this.TodoList))
             },
             DeleteItem(todo){
                 this.TodoList = this.TodoList.filter((t) => t !== todo)
                 this.Completed = this.Completed.filter((t) => t !== todo)
                 this.Active = this.Active.filter((t) => t !== todo)
                 this.All = this.All.filter((t) => t !== todo)
+                localStorage.setItem('LocalTodoList', JSON.stringify(this.TodoList))
             },
             ClearCompleted(){
                 this.TodoList = this.TodoList.filter((t) => t.done === false)
@@ -69,8 +69,21 @@
                 return this.TodoList = this.All.filter((t) => t.done === true)
             }
         },
+        created(){
+            let DataTodoList = localStorage.getItem('LocalTodoList');
+            if(DataTodoList != null){
+                this.TodoList = JSON.parse(DataTodoList);
+            }
+            let DataDarkMode = localStorage.getItem('LocalDarkMode');
+            if(DataDarkMode != null){
+                this.DarkMode = JSON.parse(DataDarkMode);
+            }
+        },
         mounted(){
             this.All = this.TodoList
+        },
+        watch: {
+
         }
     }
 </script>
