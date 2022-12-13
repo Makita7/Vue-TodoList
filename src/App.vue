@@ -3,7 +3,6 @@
     import BaseHeader from './components/BaseHeader.vue';
     import BaseListFilters from './components/BaseListFilters.vue';
 
-
     export default{
         components: {
             BaseHeader,
@@ -28,6 +27,7 @@
             ToggleDarkMode(){
                 this.DarkMode = !this.DarkMode
                 localStorage.setItem('LocalDarkMode', JSON.stringify(this.DarkMode));
+                console.log(this.DarkMode)
             },
             AddTodo(){
                 if(this.newTodo.length > 0){
@@ -69,6 +69,8 @@
                 return this.TodoList = this.All.filter((t) => t.done === true)
             }
         },
+        setup(){
+        },
         created(){
             let DataTodoList = localStorage.getItem('LocalTodoList');
             if(DataTodoList != null){
@@ -82,15 +84,14 @@
         mounted(){
             this.All = this.TodoList
         },
-        watch: {
-
-        }
+        watch() {
+        },
     }
 </script>
 
 <template>
-    <div class="relative bottomBackground App">
-        <div class="topBackground">
+    <div class="relative bottomBackground App" :class="{ bottomBackgroundDark: DarkMode }" >
+        <div class="topBackground" :class="{ topBackgroundDark: DarkMode }">
             <div class="absolute innerContainer">
                 <BaseHeader :DarkMode="DarkMode" @ToggleDarkMode="ToggleDarkMode()"/>
                 <input
@@ -98,9 +99,9 @@
                     id="newTodo"
                     v-model="newTodo"
                     @keyup.enter="AddTodo()"
+                    :class="{ inputDark: DarkMode }"
                 />
-                <div class="Wrapper">
-
+                <div class="Wrapper" :class="{ WrapperDark: DarkMode }">
                     <div v-for="todo in TodoList" :key="todo.id">
                         <div class="flex TodoItem">
                             <div v-show="todo.done" class="checkWrapper">
@@ -113,13 +114,12 @@
                                     <img class="circle" alt="blanck done" src="./assets/white-circle.svg"/>
                                 </div>
                             </div>
-                            <p>{{todo.task}}</p>
+                            <p class="pointer">{{todo.task}}</p>
                             <img @click="DeleteItem(todo)" src="./assets/icon-cross.svg" alt="delete todo item" class="delete"/>
                         </div>
-                        <hr class="divider"/>
+                        <hr class="divider" :class="{ dividerDark:DarkMode }" />
                     </div>
-
-                    <BaseListFilters :All="All" @getAll="getAll()" @DeleteAll='DeleteAll()' @getCompleted="getCompleted()" @getActive="getActive()" @ClearCompleted="ClearCompleted()"/>
+                    <BaseListFilters :All="All" @getAll="getAll()" @DeleteAll='DeleteAll()' @getCompleted="getCompleted()" @getActive="getActive()" @ClearCompleted="ClearCompleted()" :DarkMode="DarkMode"/>
                 </div>
                 <p class="dragtext">Drag and drop to reorder list</p>
             </div>
@@ -133,6 +133,11 @@
         background-repeat: no-repeat;
         background-size: cover;
         height: 18.5rem;
+        transition: 1s ease-in-out;
+    }
+    .topBackgroundDark{
+        background-image: url('./assets/bg-desktop-dark.jpg') !important;
+        transition: 1s ease-in-out;
     }
     .innerContainer{
         width: 100vh;
@@ -141,6 +146,11 @@
     .bottomBackground{
         background-color: hsl(0, 0%, 98%);
         height: 100vh;
+        transition: 1s ease-in-out;
+    }
+    .bottomBackgroundDark{
+        background-color: hsl(235, 21%, 11%);
+        transition: 1s ease-in-out;
     }
     .Wrapper{
         background-color: white;
@@ -149,6 +159,11 @@
         padding: 15px 25px;
         box-sizing: border-box;
         box-shadow: 0px 0px 20px hsl(233deg 6% 71% / 64%);
+    }
+    .WrapperDark{
+        background-color: hsl(235, 24%, 19%);
+        color: hsl(234, 39%, 85%);
+        box-shadow: 0px 0px 20px hsl(0, 0%, 0%);
     }
 
     input{
@@ -160,6 +175,14 @@
         font-size: 1.4rem;
         padding: 0rem 2rem;
         box-sizing: border-box;
+    }
+    input:focus-visible {
+        outline: hsla(234, 39%, 85%, 0);
+        border-color: rgba(250, 235, 215, 0);
+    }
+    .inputDark{
+        background-color: hsl(235, 24%, 19%);
+        color: hsl(0, 0%, 100%);
     }
     .dragtext{
         margin-top: 3rem;
@@ -224,5 +247,16 @@
         margin: 0.8rem 0;
         background-color: hsl(0, 0%, 98%);
         margin-left: -25px;
+        border-bottom-color: hsl(0, 0%, 98%);
+        border-width: 1px;
+        transition: 1s ease-in-out;
+    }
+    .dividerDark{
+        background-color: hsl(233, 14%, 35%);
+        border-bottom-color: hsl(233, 14%, 35%);
+        transition: 1s ease-in-out;
+    }
+    .pointer{
+        cursor: pointer;
     }
 </style>
