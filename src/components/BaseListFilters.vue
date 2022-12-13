@@ -74,4 +74,21 @@
     .deleteBtn{
         text-align: right !important;
     }
+    @media (max-width: 767px){
+        .deleteBtn{
+            display: block;
+        }
+        button{
+            padding: 0.3rem 0;
+        }
+        .filters{
+            display: grid;
+        }
+        .deleteBtn{
+            display: grid;
+        }
+        .count p{
+            padding-top: 2rem;
+        }
+    }
 </style>

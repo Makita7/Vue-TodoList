@@ -90,7 +90,7 @@
 </script>
 
 <template>
-    <div class="relative bottomBackground App" :class="{ bottomBackgroundDark: DarkMode }" >
+    <div class="relative App bodyLight" :class="{ bodyDark: DarkMode }" >
         <div class="topBackground" :class="{ topBackgroundDark: DarkMode }">
             <div class="absolute innerContainer">
                 <BaseHeader :DarkMode="DarkMode" @ToggleDarkMode="ToggleDarkMode()"/>
@@ -143,14 +143,13 @@
         width: 100vh;
         margin-left: 50vh;
     }
-    .bottomBackground{
+    .bodyLight{
         background-color: hsl(0, 0%, 98%);
-        height: 100vh;
+        min-height: 200vh;
         transition: 1s ease-in-out;
     }
-    .bottomBackgroundDark{
-        background-color: hsl(235, 21%, 11%);
-        transition: 1s ease-in-out;
+    .bodyDark{
+        background-color: hsl(235, 21%, 11%) !important;
     }
     .Wrapper{
         background-color: white;
@@ -249,14 +248,70 @@
         margin-left: -25px;
         border-bottom-color: hsl(0, 0%, 98%);
         border-width: 1px;
-        transition: 1s ease-in-out;
+        transition: 0.5s ease-in-out;
     }
     .dividerDark{
         background-color: hsl(233, 14%, 35%);
         border-bottom-color: hsl(233, 14%, 35%);
-        transition: 1s ease-in-out;
     }
+    .dragtext{
+            margin-bottom: 3rem;
+        }
     .pointer{
         cursor: pointer;
+    }
+    @media (min-width: 1920px){
+        .divider{
+            width: 105.5%;
+        }
+        .check .circle{
+            padding-left: 0.07rem;
+        }
+    }
+    @media only screen and (min-width: 768px) and (max-width: 1300px) and (orientation:landscape){
+        .innerContainer {
+            width: 75%;
+            margin-left: 12.5%;
+        }
+        .divider{
+            width: 105.5%;
+        }
+    }
+    @media only screen and (min-width: 768px) and (max-width: 1300px) and (orientation:portrait){
+        .innerContainer {
+            width: 80%;
+            margin-left: 10%;
+        }
+        .divider{
+            width: 108%;
+        }
+    }
+    @media (max-width: 767px){
+        .innerContainer {
+            width: 90%;
+            margin-left: 5%;
+        }
+        .divider{
+            width: 117%;
+        }
+        .checkWrapperFalse{
+            width: 2.2rem;
+        }
+        .checkWrapper{
+            width: 2.2rem;
+        }
+        .bodyLight{
+            background-color: hsl(0, 0%, 98%);
+            min-height: 400vh;
+        }
+    }
+    @media (max-width: 767px) and (orientation:landscape){
+        .divider {
+            width: 107.5%;
+        }
+        .bodyLight{
+            background-color: hsl(0, 0%, 98%);
+            min-height: 400vh;
+        }
     }
 </style>
