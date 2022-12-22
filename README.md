@@ -33,8 +33,9 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Link](https://your-solution-url.com)
-- Live Site URL: [Link](https://your-live-site-url.com)
+- Solution URL: [Link](https://www.frontendmentor.io/solutions/todo-app-LQybIhakOg)
+- Live Site URL: [Link](https://makita7.github.io/Vue-TodoList/)
+- Repository URL: [Link](https://github.com/Makita7/Vue-TodoList)
 
 ### Built with
 
