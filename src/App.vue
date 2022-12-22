@@ -98,71 +98,74 @@
 </script>
 
 <template>
-    <div class="relative App bodyLight" :class="{ bodyDark: DarkMode }" >
-        <div class="topBackground" :class="{ topBackgroundDark: DarkMode }">
-            <div class="absolute innerContainer">
-                <BaseHeader :DarkMode="DarkMode" @ToggleDarkMode="ToggleDarkMode()"/>
-                <input
-                    type="text"
-                    id="newTodo"
-                    v-model="newTodo"
-                    @keyup.enter="AddTodo()"
-                    :class="{ inputDark: DarkMode }"
-                />
-                <div class="Wrapper" :class="{ WrapperDark: DarkMode }">
+    <body>
 
-                    <draggable
-                        v-model="TodoList"
-                        group="todo"
-                        @start="drag=true"
-                        @end="drag=false, LocalDrag()"
-                        ghost-class="ghost"
-                        item-key="id"
-                        :list="TodoList"
-                    >
-                        <template #item="{element}">
-                            <div :key="element.id" >
-                                <div class="flex TodoItem">
-                                    <div v-show="element.done" class="checkWrapper">
-                                        <div class="check"  @click="ToggleDone(element)" >
-                                            <img alt="check" src="./assets/icon-check.svg"/>
+        <div class="relative App bodyLight" :class="{ bodyDark: DarkMode }" >
+            <div class="topBackground" :class="{ topBackgroundDark: DarkMode }">
+                <div class="absolute innerContainer">
+                    <BaseHeader :DarkMode="DarkMode" @ToggleDarkMode="ToggleDarkMode()"/>
+                    <input
+                        type="text"
+                        id="newTodo"
+                        v-model="newTodo"
+                        @keyup.enter="AddTodo()"
+                        :class="{ inputDark: DarkMode }"
+                    />
+                    <div class="Wrapper" :class="{ WrapperDark: DarkMode }">
+
+                        <draggable
+                            v-model="TodoList"
+                            group="todo"
+                            @start="drag=true"
+                            @end="drag=false, LocalDrag()"
+                            ghost-class="ghost"
+                            item-key="id"
+                            :list="TodoList"
+                        >
+                            <template #item="{element}">
+                                <div :key="element.id" >
+                                    <div class="flex TodoItem">
+                                        <div v-show="element.done" class="checkWrapper">
+                                            <div class="check"  @click="ToggleDone(element)" >
+                                                <img alt="check" src="./assets/icon-check.svg"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div v-show="!element.done" class="checkWrapperFalse">
-                                        <div class="check"  @click="ToggleDone(element)" >
-                                            <img class="circle" alt="blanck done" src="./assets/white-circle.svg"/>
+                                        <div v-show="!element.done" class="checkWrapperFalse">
+                                            <div class="check"  @click="ToggleDone(element)" >
+                                                <img class="circle" alt="blanck done" src="./assets/white-circle.svg"/>
+                                            </div>
                                         </div>
+                                        <p class="pointer">{{element.task}}</p>
+                                        <img @click="DeleteItem(element)" src="./assets/icon-cross.svg" alt="delete todo item" class="delete"/>
                                     </div>
-                                    <p class="pointer">{{element.task}}</p>
-                                    <img @click="DeleteItem(element)" src="./assets/icon-cross.svg" alt="delete todo item" class="delete"/>
+                                    <hr class="divider" :class="{ dividerDark:DarkMode }" />
                                 </div>
-                                <hr class="divider" :class="{ dividerDark:DarkMode }" />
-                            </div>
-                        </template>
-                    </draggable>
+                            </template>
+                        </draggable>
 
 
-                    <BaseListFilters :All="All" @getAll="getAll()" @DeleteAll='DeleteAll()' @getCompleted="getCompleted()" @getActive="getActive()" @ClearCompleted="ClearCompleted()" :DarkMode="DarkMode"/>
+                        <BaseListFilters :All="All" @getAll="getAll()" @DeleteAll='DeleteAll()' @getCompleted="getCompleted()" @getActive="getActive()" @ClearCompleted="ClearCompleted()" :DarkMode="DarkMode"/>
+                    </div>
+                    <p class="dragtext">Drag and drop to reorder list</p>
                 </div>
-                <p class="dragtext">Drag and drop to reorder list</p>
             </div>
+            <!-- Easy Version of draggable -->
+            <!-- <draggable
+                v-model="myArray"
+                group="people"
+                @start="drag=true"
+                @end="drag=false"
+                item-key="id"
+                :list="myList"
+                >
+
+                <template #item="{element}">
+                    <div>{{element.name}}</div>
+                </template>
+
+            </draggable> -->
         </div>
-        <!-- Easy Version of draggable -->
-        <!-- <draggable
-            v-model="myArray"
-            group="people"
-            @start="drag=true"
-            @end="drag=false"
-            item-key="id"
-            :list="myList"
-            >
-
-            <template #item="{element}">
-                <div>{{element.name}}</div>
-            </template>
-
-        </draggable> -->
-    </div>
+    </body>
 </template>
 
 <style scoped>
