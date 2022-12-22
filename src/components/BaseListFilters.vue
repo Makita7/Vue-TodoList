@@ -32,13 +32,13 @@
             <p>{{All.filter(t => t.done === false).length}} items left</p>
         </div>
         <div class="col flex filters">
-            <button @click="getAll()" :class="{DarkMode: DarkMode}" >All</button>
-            <button @click="getActive()" :class="{DarkMode: DarkMode}" >Active</button>
-            <button @click="getCompleted()" :class="{DarkMode: DarkMode}" >Completed</button>
+            <button aria-label="see all items" @click="getAll()" :class="{DarkMode: DarkMode}" >All</button>
+            <button aria-label="see only active items" @click="getActive()" :class="{DarkMode: DarkMode}" >Active</button>
+            <button aria-label="see only completed items" @click="getCompleted()" :class="{DarkMode: DarkMode}" >Completed</button>
         </div>
         <div class="col deleteBtn">
-            <button @click="ClearCompleted()" :class="{DarkMode: DarkMode}" >Clear Completed</button>
-            <button @click="DeleteAll()" :class="{DarkMode: DarkMode}" >Delete All</button>
+            <button aria-label="clear completed items" @click="ClearCompleted()" :class="{DarkMode: DarkMode}" >Clear Completed</button>
+            <button aria-label="clear all items in list" @click="DeleteAll()" :class="{DarkMode: DarkMode}" >Delete All</button>
         </div>
     </div>
 </template>

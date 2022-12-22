@@ -14,10 +14,10 @@
 <template>
     <header>
         <h1>todo</h1>
-        <button v-show="!DarkMode" @click="ToggleDarkMode()">
+        <button aria-label="toggle dark mode" v-show="!DarkMode" @click="ToggleDarkMode()">
             <fa class="iconW fa-2xl" icon="moon"/>
         </button>
-        <button v-show="DarkMode" @click="ToggleDarkMode()">
+        <button aria-label="toggle dark mode" v-show="DarkMode" @click="ToggleDarkMode()">
             <fa class="iconW fa-2xl" icon="sun"/>
         </button>
     </header>
