@@ -2,21 +2,26 @@
     import '@fortawesome/free-solid-svg-icons';
     import BaseHeader from './components/BaseHeader.vue';
     import BaseListFilters from './components/BaseListFilters.vue';
+    import draggable from 'vuedraggable';
 
     export default{
         components: {
             BaseHeader,
             BaseListFilters,
+            draggable
         },
         data(){
             return{
                 TodoList: [],
+                myArray: [],
                 All: [],
                 Completed: [],
                 Active: [],
                 DarkMode: false,
                 LastId: [],
                 newTodo: '',
+                myList: [{name:"First Item"}, {name:"Second Item"}, {name:"Third Item"}],
+                drag: false,
             }
         },
         methods: {
@@ -67,6 +72,9 @@
             },
             getCompleted(){
                 return this.TodoList = this.All.filter((t) => t.done === true)
+            },
+            LocalDrag(){
+                localStorage.setItem('LocalTodoList', JSON.stringify(this.TodoList))
             }
         },
         setup(){
@@ -102,28 +110,58 @@
                     :class="{ inputDark: DarkMode }"
                 />
                 <div class="Wrapper" :class="{ WrapperDark: DarkMode }">
-                    <div v-for="todo in TodoList" :key="todo.id">
-                        <div class="flex TodoItem">
-                            <div v-show="todo.done" class="checkWrapper">
-                                <div class="check"  @click="ToggleDone(todo)" >
-                                    <img alt="check" src="./assets/icon-check.svg"/>
+
+                    <draggable
+                        v-model="TodoList"
+                        group="todo"
+                        @start="drag=true"
+                        @end="drag=false, LocalDrag()"
+                        ghost-class="ghost"
+                        item-key="id"
+                        :list="TodoList"
+                    >
+                        <template #item="{element}">
+                            <div :key="element.id" >
+                                <div class="flex TodoItem">
+                                    <div v-show="element.done" class="checkWrapper">
+                                        <div class="check"  @click="ToggleDone(element)" >
+                                            <img alt="check" src="./assets/icon-check.svg"/>
+                                        </div>
+                                    </div>
+                                    <div v-show="!element.done" class="checkWrapperFalse">
+                                        <div class="check"  @click="ToggleDone(element)" >
+                                            <img class="circle" alt="blanck done" src="./assets/white-circle.svg"/>
+                                        </div>
+                                    </div>
+                                    <p class="pointer">{{element.task}}</p>
+                                    <img @click="DeleteItem(element)" src="./assets/icon-cross.svg" alt="delete todo item" class="delete"/>
                                 </div>
+                                <hr class="divider" :class="{ dividerDark:DarkMode }" />
                             </div>
-                            <div v-show="!todo.done" class="checkWrapperFalse">
-                                <div class="check"  @click="ToggleDone(todo)" >
-                                    <img class="circle" alt="blanck done" src="./assets/white-circle.svg"/>
-                                </div>
-                            </div>
-                            <p class="pointer">{{todo.task}}</p>
-                            <img @click="DeleteItem(todo)" src="./assets/icon-cross.svg" alt="delete todo item" class="delete"/>
-                        </div>
-                        <hr class="divider" :class="{ dividerDark:DarkMode }" />
-                    </div>
+                        </template>
+                    </draggable>
+
+
                     <BaseListFilters :All="All" @getAll="getAll()" @DeleteAll='DeleteAll()' @getCompleted="getCompleted()" @getActive="getActive()" @ClearCompleted="ClearCompleted()" :DarkMode="DarkMode"/>
                 </div>
                 <p class="dragtext">Drag and drop to reorder list</p>
             </div>
         </div>
+        <!-- Easy Version of draggable -->
+        <!-- <draggable
+            v-model="myArray"
+            group="people"
+            @start="drag=true"
+            @end="drag=false"
+            item-key="id"
+            :list="myList"
+            >
+
+            <template #item="{element}">
+                <div>{{element.name}}</div>
+            </template>
+
+        </draggable> -->
     </div>
 </template>
 
@@ -259,6 +297,9 @@
         }
     .pointer{
         cursor: pointer;
+    }
+    .ghost{
+        opacity: 0.5;
     }
     @media (min-width: 1920px){
         .divider{
